@@ -12,13 +12,27 @@ export const DASHBOARD_ROUTES: Route[] = [
     path: '',
     component: Dashboard,
     children: [
-      //   {
-      //     path: 'settings',
-      //     // canActivate: [permissionGuard],
-      //     // data: { permission: 'device_view' },
-      //     // loadComponent: () =>
-      //     //   import('./settings/settings').then((m) => m.Settings),
-      //   },
+      {
+        path: 'reports',
+        // canActivate: [permissionGuard],
+        // data: { permission: 'device_view' },
+        loadComponent: () =>
+          import('./components/reports/reports').then((m) => m.Reports),
+      },
+      {
+        path: 'riders',
+        // canActivate: [permissionGuard],
+        // data: { permission: 'device_view' },
+        loadComponent: () =>
+          import('./components/riders/riders').then((m) => m.Riders),
+      },
+      {
+        path: 'settings',
+        // canActivate: [permissionGuard],
+        // data: { permission: 'device_view' },
+        loadComponent: () =>
+          import('./components/settings/settings').then((m) => m.Settings),
+      },
       //   {
       //     path: 'analytics',
       //     // canActivate: [permissionGuard],
@@ -26,10 +40,10 @@ export const DASHBOARD_ROUTES: Route[] = [
       //     // loadComponent: () =>
       //     //   import('./analytics/analytics').then((m) => m.Analytics),
       //   },
-      //   {
-      //     path: '**',
-      //     redirectTo: 'credentials',
-      //   },
+      {
+        path: '**',
+        redirectTo: 'dashboard',
+      },
     ],
   },
 ];

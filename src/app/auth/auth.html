@@ -1,53 +1,60 @@
-<!-- Auth Screen -->
-<div class="screen" id="screen-auth">
-  <!-- logo -->
-  <div class="auth-logo">
-    <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-      <path
-        d="M7 31C7 31 12 21 22 21C32 21 37 13 37 13"
-        stroke="white"
-        stroke-width="3.5"
-        stroke-linecap="round"
-      />
-      <circle cx="9" cy="33" r="5" fill="white" />
-      <circle cx="35" cy="33" r="5" fill="white" />
-      <path d="M9 33H35" stroke="white" stroke-width="2.5" />
-      <circle cx="22" cy="15" r="3.5" fill="rgba(255,255,255,0.7)" />
-    </svg>
-  </div>
-  <!-- titles -->
-  <div class="auth-title">BodaTrack</div>
-  <div class="auth-sub">Your boda boda business, organized</div>
-
-  <div class="auth-card">
-    <h2>Welcome back</h2>
-    <app-input
-      inputLabel="User Name"
-      inputType="text"
-      inputPlaceholder="Enter User name"
-      (valueChange)="username = $event"
-    />
-    <app-input
-      inputLabel="Password"
-      inputType="password"
-      inputPlaceholder="Enter Password"
-      (valueChange)="password = $event"
-    />
-
-    <app-button [buttonTitle]="'Sign In'" (buttonClick)="handleSubmit()" />
-
-    <div class="auth-error" id="authError">
-      Invalid credentials. Try admin / admin123
+@if (isLoading) {
+  <app-loading />
+} @else {
+  <div class="" id="screen-auth">
+    <!-- logo -->
+    <div class="auth-logo">
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+        <path
+          d="M7 31C7 31 12 21 22 21C32 21 37 13 37 13"
+          stroke="white"
+          stroke-width="3.5"
+          stroke-linecap="round"
+        />
+        <circle cx="9" cy="33" r="5" fill="white" />
+        <circle cx="35" cy="33" r="5" fill="white" />
+        <path d="M9 33H35" stroke="white" stroke-width="2.5" />
+        <circle cx="22" cy="15" r="3.5" fill="rgba(255,255,255,0.7)" />
+      </svg>
     </div>
-    <p
-      style="
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 12px;
-        text-align: center;
-        margin-top: 14px;
-      "
-    >
-      Demo: admin / admin123
-    </p>
+    <!-- titles -->
+    <div class="auth-title">BodaTrack</div>
+    <div class="auth-sub">Your boda boda business, organized</div>
+
+    <div class="auth-card">
+      <h2>Welcome back</h2>
+      <app-input
+        inputLabel="User Name"
+        inputType="text"
+        inputPlaceholder="Enter User name"
+        [field]="loginForm.email"
+      />
+      <app-input
+        inputLabel="Password"
+        inputType="password"
+        inputPlaceholder="Enter Password"
+        [field]="loginForm.password"
+      />
+
+      <app-button
+        [isValid]="formValid"
+        [buttonTitle]="'Sign In'"
+        (buttonClick)="handleSubmit()"
+      />
+
+      <div class="auth-error" id="authError">
+        Invalid credentials. Try admin / admin123
+      </div>
+      <p
+        style="
+          color: rgba(255, 255, 255, 0.5);
+          font-size: 12px;
+          text-align: center;
+          margin-top: 14px;
+        "
+      >
+        Demo: admin / admin123
+      </p>
+    </div>
   </div>
-</div>
+}

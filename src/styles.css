@@ -66,9 +66,9 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  max-width: 430px;
-  margin: 0 auto;
-  position: relative;
+  /* max-width: 430px; */
+  /* margin: 0 auto; */
+  /* position: relative; */
   overflow-x: hidden;
 }
 
@@ -92,6 +92,7 @@ body {
   min-height: 100vh;
   padding: 40px 24px;
   padding-bottom: 40px;
+  width: 100vw;
 }
 #screen-auth.active {
   display: flex;
@@ -142,7 +143,20 @@ body {
 }
 
 .field {
-  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 30px;
+}
+
+.error-msg {
+  color: #ff4d4f;
+  font-size: 12px;
+}
+
+.has-error input {
+  border-color: #ff4d4f;
+  outline-color: #ff4d4f;
 }
 .field label {
   display: block;
@@ -177,8 +191,8 @@ body {
   padding: 14px;
   border-radius: var(--radius-sm);
   border: none;
-  background: #fff;
-  color: var(--purple-600);
+  background: var(--purple-500);
+  color: #fff;
   font-family: "Sora", sans-serif;
   font-size: 15px;
   font-weight: 700;
@@ -575,6 +589,7 @@ body {
   padding: 4px 0;
   position: relative;
 }
+
 .nav-item svg {
   width: 22px;
   height: 22px;
