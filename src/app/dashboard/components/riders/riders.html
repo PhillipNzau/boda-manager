@@ -1,1 +1,61 @@
-<p>riders works!</p>
+<!-- RIDERS SCREEN -->
+<div class="screen active" id="screen-riders">
+  <div class="top-header">
+    <div class="header-left">
+      <h1>Manage</h1>
+      <h2>Riders & Bikes</h2>
+    </div>
+    <div class="header-actions">
+      <div class="icon-btn" onclick="App.modals.open('add-rider')">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs" style="margin-bottom: 16px">
+    <div
+      class="tab active"
+      onclick="App.ridersTab('riders', this)"
+      id="ridersTabBtn"
+    >
+      Riders
+    </div>
+    <div class="tab" onclick="App.ridersTab('bikes', this)" id="bikesTabBtn">
+      Bikes
+    </div>
+  </div>
+
+  <div id="riders-panel">
+    <div id="ridersList"></div>
+    <div style="padding: 0 20px; margin-top: 4px">
+      <button
+        class="btn-modal-primary"
+        onclick="App.modals.open('add-rider')"
+        style="width: 100%; border-radius: 12px"
+      >
+        + Add New Rider
+      </button>
+    </div>
+  </div>
+
+  <div id="bikes-panel" style="display: none">
+    <div id="bikesList"></div>
+    <div style="padding: 0 20px; margin-top: 4px">
+      <button
+        class="btn-modal-primary"
+        onclick="App.modals.open('add-bike')"
+        style="width: 100%; border-radius: 12px"
+      >
+        + Add New Bike
+      </button>
+    </div>
+  </div>
+</div>

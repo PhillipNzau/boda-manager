@@ -4,7 +4,7 @@ import { Auth } from './auth/auth';
 
 export const routes: Routes = [
   {
-    path: 'dashboard',
+    path: '',
     loadChildren: () =>
       import('./dashboard/dashboard.routes').then(
         (mod) => mod.DASHBOARD_ROUTES,
@@ -12,7 +12,11 @@ export const routes: Routes = [
     // canActivate: [() => inject(Authservice).isLoggedIn],
   },
   {
-    path: '',
+    path: 'auth',
     loadComponent: () => import('./auth/auth').then((m) => m.Auth),
+  },
+  {
+    path: '**',
+    redirectTo: '',
   },
 ];

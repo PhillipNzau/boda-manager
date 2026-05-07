@@ -1,1 +1,135 @@
-<p>home works!</p>
+<!-- DASHBOARD SCREEN -->
+<div class="screen active" id="screen-home">
+  <div class="top-header">
+    <div class="header-left">
+      <h1 id="greetingLabel">Good Morning</h1>
+      <h2 id="greetingName">name</h2>
+    </div>
+    <div class="header-actions">
+      <div class="icon-btn" (click)="toggleTheme()">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+      </div>
+      <div class="avatar-btn" id="avatarBtn">AD</div>
+    </div>
+  </div>
+
+  <div class="balance-hero" id="balanceHero">
+    <div class="balance-label">Total Balance</div>
+    <div class="balance-amount" id="heroBalance">KES 0</div>
+    <div class="balance-change">
+      This month: <span id="heroMonthly">+KES 0</span>
+    </div>
+    <div class="balance-stats">
+      <div class="balance-stat">
+        <div class="stat-icon">✅</div>
+        <div class="stat-val" id="heroPayments">0</div>
+        <div class="stat-lbl">Payments Received</div>
+      </div>
+      <div class="balance-stat">
+        <div class="stat-icon">❌</div>
+        <div class="stat-val" id="heroMissed">0</div>
+        <div class="stat-lbl">Missed This Month</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-banner" id="insightBanner">
+    <div class="insight-text">
+      <span>💡</span> <span id="insightText">Loading insight...</span>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top: 20px">
+    <h3>Quick Actions</h3>
+  </div>
+  <div class="quick-actions">
+    <div class="quick-action" onclick="App.modals.open('record-payment')">
+      <div class="qa-icon qa-green">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#16A34A"
+          stroke-width="2.5"
+        >
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+          <polyline points="22 4 12 14.01 9 11.01" />
+        </svg>
+      </div>
+      <span class="qa-label">Record</span>
+    </div>
+    <div class="quick-action" onclick="App.navigate('report')">
+      <div class="qa-icon qa-purple">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#7C3AED"
+          stroke-width="2.5"
+        >
+          <line x1="18" y1="20" x2="18" y2="10" />
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="14" />
+        </svg>
+      </div>
+      <span class="qa-label">Reports</span>
+    </div>
+    <div class="quick-action" onclick="App.navigate('riders')">
+      <div class="qa-icon qa-blue">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#2563EB"
+          stroke-width="2.5"
+        >
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+      </div>
+      <span class="qa-label">Riders</span>
+    </div>
+    <div class="quick-action" onclick="App.exports.csv()">
+      <div class="qa-icon qa-red">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#DC2626"
+          stroke-width="2.5"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+      </div>
+      <span class="qa-label">Export</span>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <h3>Recent Transactions</h3>
+    <button class="see-all" onclick="App.navigate('report')">See all</button>
+  </div>
+  <div class="tx-list" id="recentTxList">
+    <div class="empty-state">
+      <div class="es-icon">🏍️</div>
+      <h3>No transactions yet</h3>
+      <p>Record your first payment using the quick action above</p>
+    </div>
+  </div>
+  <div style="height: 8px"></div>
+</div>

@@ -1,1 +1,155 @@
-<p>settings works!</p>
+<!-- SETTINGS SCREEN -->
+<div class="screen active" id="screen-settingss">
+  <div class="top-header">
+    <div class="header-left">
+      <h1>App</h1>
+      <h2>Settings</h2>
+    </div>
+  </div>
+
+  <div style="padding: 20px 20px 0">
+    <div
+      style="
+        background: linear-gradient(
+          135deg,
+          var(--purple-600),
+          var(--purple-400)
+        );
+        border-radius: var(--radius);
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 24px;
+      "
+    >
+      <div
+        style="
+          width: 56px;
+          height: 56px;
+          border-radius: 16px;
+          background: rgba(255, 255, 255, 0.2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 22px;
+          font-weight: 700;
+          color: #fff;
+        "
+        id="settingsAvatar"
+      >
+        AD
+      </div>
+      <div>
+        <div
+          style="color: #fff; font-size: 17px; font-weight: 700"
+          id="settingsName"
+        >
+          Admin User
+        </div>
+        <div style="color: rgba(255, 255, 255, 0.7); font-size: 13px">
+          Business Owner
+        </div>
+        <div
+          style="
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 11px;
+            margin-top: 2px;
+            font-family: &quot;DM Mono&quot;, monospace;
+          "
+          id="settingsJoined"
+        >
+          Since Jan 2025
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <h4>Business</h4>
+    <div class="settings-item" onclick="App.modals.open('edit-daily-rate')">
+      <div class="si-icon" style="background: #f3efff; font-size: 18px">💰</div>
+      <div class="si-text">
+        <p>Daily Remittance</p>
+        <small id="dailyRateDisplay">KES 350 per rider</small>
+      </div>
+      <svg
+        class="si-chevron"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        width="16"
+        height="16"
+      >
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </div>
+    <div class="settings-item">
+      <div class="si-icon" style="background: #ecfdf5; font-size: 18px">📊</div>
+      <div class="si-text">
+        <p>Total Transactions</p>
+        <small id="txCount">0 recorded</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <h4>Preferences</h4>
+    <div class="settings-item" (click)="toggleTheme()">
+      <div class="si-icon" style="background: #fef3c7; font-size: 18px">🌙</div>
+
+      <div class="si-text">
+        <p>Dark Mode</p>
+        <small>Toggle app theme</small>
+      </div>
+
+      <div
+        class="toggle-switch"
+        [class.on]="storageService.state.settings.darkMode"
+      ></div>
+    </div>
+    <div class="settings-item">
+      <div class="si-icon" style="background: #eff6ff; font-size: 18px">🔔</div>
+      <div class="si-text">
+        <p>Notifications</p>
+        <small>Payment reminders</small>
+      </div>
+      <div
+        class="toggle-switch on"
+        id="notifToggle"
+        onclick="this.classList.toggle('on')"
+      ></div>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <h4>Data</h4>
+    <div class="settings-item" onclick="App.exports.csv()">
+      <div class="si-icon" style="background: #ecfdf5; font-size: 18px">📥</div>
+      <div class="si-text">
+        <p>Export to CSV</p>
+        <small>Download all transactions</small>
+      </div>
+      <svg
+        class="si-chevron"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        width="16"
+        height="16"
+      >
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </div>
+    <div class="settings-item" onclick="App.auth.logout()">
+      <div class="si-icon" style="background: #fef2f2; font-size: 18px">🚪</div>
+      <div class="si-text">
+        <p style="color: var(--red-500)">Sign Out</p>
+        <small>Log out of this device</small>
+      </div>
+    </div>
+  </div>
+</div>
+<p>sadasd</p>

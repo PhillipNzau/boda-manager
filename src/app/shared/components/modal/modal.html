@@ -1,0 +1,41 @@
+<div class="modal-overlay" id="modal-record-payment">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">💰 Record Payment</div>
+    <div class="modal-field">
+      <label>Rider</label>
+      <select id="payRider"></select>
+    </div>
+    <div class="modal-field">
+      <label>Date</label>
+      <input type="date" id="payDate" />
+    </div>
+    <div class="modal-field">
+      <label>Status</label>
+      <select id="payStatus">
+        <option value="paid">✅ Paid (Full - KES 350)</option>
+        <option value="partial">⚠️ Partial Payment</option>
+        <option value="missed">❌ Missed</option>
+      </select>
+    </div>
+    <div class="modal-field" id="payAmountField">
+      <label>Amount (KES)</label>
+      <input type="number" id="payAmount" value="350" min="0" />
+    </div>
+    <div class="modal-field">
+      <label>Note (optional)</label>
+      <input type="text" id="payNote" placeholder="e.g. Bike repair day" />
+    </div>
+    <div class="modal-actions">
+      <button
+        class="btn-modal-cancel"
+        onclick="App.modals.close('record-payment')"
+      >
+        Cancel
+      </button>
+      <button class="btn-modal-primary" onclick="App.payments.record()">
+        Record Payment
+      </button>
+    </div>
+  </div>
+</div>

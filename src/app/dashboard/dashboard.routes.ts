@@ -13,6 +13,13 @@ export const DASHBOARD_ROUTES: Route[] = [
     component: Dashboard,
     children: [
       {
+        path: '',
+        // canActivate: [permissionGuard],
+        // data: { permission: 'device_view' },
+        loadComponent: () =>
+          import('./components/home/home').then((m) => m.Home),
+      },
+      {
         path: 'reports',
         // canActivate: [permissionGuard],
         // data: { permission: 'device_view' },
@@ -42,7 +49,7 @@ export const DASHBOARD_ROUTES: Route[] = [
       //   },
       {
         path: '**',
-        redirectTo: 'dashboard',
+        redirectTo: '',
       },
     ],
   },
