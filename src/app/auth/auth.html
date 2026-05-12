@@ -1,4 +1,4 @@
-@if (isLoading) {
+@if (isSubmitting()) {
   <app-loading />
 } @else {
   <div class="" id="screen-auth">
@@ -23,12 +23,22 @@
 
     <div class="auth-card">
       <h2>Welcome back</h2>
+      @if (isSignup()) {
+        <app-input
+          inputLabel="User Name"
+          inputType="text"
+          inputPlaceholder="Enter User name"
+          [field]="loginForm.name"
+        />
+      }
+
       <app-input
-        inputLabel="User Name"
-        inputType="text"
-        inputPlaceholder="Enter User name"
+        inputLabel="Email"
+        inputType="email"
+        inputPlaceholder="Enter Email"
         [field]="loginForm.email"
       />
+
       <app-input
         inputLabel="Password"
         inputType="password"
@@ -38,13 +48,11 @@
 
       <app-button
         [isValid]="formValid"
-        [buttonTitle]="'Sign In'"
-        (buttonClick)="handleSubmit()"
+        [buttonTitle]="isSignup() ? 'Register' : 'Sign In'"
+        (buttonClick)="isSignup() ? handleSignupSubmit() : handleLoginSubmit()"
+        [isSubmitting]="isSubmitting()"
       />
 
-      <div class="auth-error" id="authError">
-        Invalid credentials. Try admin / admin123
-      </div>
       <p
         style="
           color: rgba(255, 255, 255, 0.5);
@@ -53,7 +61,12 @@
           margin-top: 14px;
         "
       >
-        Demo: admin / admin123
+        Don't have an account.
+        <span
+          class="font-bold underline cursor-pointer"
+          (click)="toggleSignup()"
+          >Register</span
+        >
       </p>
     </div>
   </div>
