@@ -30,19 +30,21 @@
 
   <div class="balance-hero" id="balanceHero">
     <div class="balance-label">Total Balance</div>
-    <div class="balance-amount" id="heroBalance">KES 0</div>
+    <div class="balance-amount" id="heroBalance">
+      KES {{ total_collected() }}
+    </div>
     <div class="balance-change">
-      This month: <span id="heroMonthly">+KES 0</span>
+      This month: <span id="heroMonthly">+KES {{ total_collected() }}</span>
     </div>
     <div class="balance-stats">
       <div class="balance-stat">
         <div class="stat-icon">✅</div>
-        <div class="stat-val" id="heroPayments">0</div>
+        <div class="stat-val" id="heroPayments">{{ total_collected() }}</div>
         <div class="stat-lbl">Payments Received</div>
       </div>
       <div class="balance-stat">
         <div class="stat-icon">❌</div>
-        <div class="stat-val" id="heroMissed">0</div>
+        <div class="stat-val" id="heroMissed">{{ total_debt() }}</div>
         <div class="stat-lbl">Missed This Month</div>
       </div>
     </div>
@@ -72,7 +74,7 @@
       </div>
       <span class="qa-label">Record</span>
     </div>
-    <div class="quick-action" onclick="App.navigate('report')">
+    <div class="quick-action" routerLink="reports">
       <div class="qa-icon qa-purple">
         <svg
           viewBox="0 0 24 24"
@@ -87,7 +89,7 @@
       </div>
       <span class="qa-label">Reports</span>
     </div>
-    <div class="quick-action" onclick="App.navigate('riders')">
+    <div class="quick-action" routerLink="riders">
       <div class="qa-icon qa-blue">
         <svg
           viewBox="0 0 24 24"
@@ -103,7 +105,7 @@
       </div>
       <span class="qa-label">Riders</span>
     </div>
-    <div class="quick-action" onclick="App.exports.csv()">
+    <div class="quick-action">
       <div class="qa-icon qa-red">
         <svg
           viewBox="0 0 24 24"
@@ -125,11 +127,14 @@
     <button class="see-all" onclick="App.navigate('report')">See all</button>
   </div>
   <div class="tx-list" id="recentTxList">
-    <div class="empty-state">
-      <div class="es-icon">🏍️</div>
-      <h3>No transactions yet</h3>
-      <p>Record your first payment using the quick action above</p>
-    </div>
+    @if (transactions_data() === null) {
+      <div class="empty-state">
+        <div class="es-icon">🏍️</div>
+        <h3>No transactions yet</h3>
+        <p>Record your first payment using the quick action above</p>
+      </div>
+    } @else {}
   </div>
+
   <div style="height: 8px"></div>
 </div>
