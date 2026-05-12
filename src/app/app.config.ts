@@ -6,6 +6,7 @@ import {
 import { provideRouter } from '@angular/router';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
 // import { provideServiceWorker } from '@angular/service-worker';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import {
   provideHttpClient,
@@ -20,7 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
-    // provideAnimation(),
+    provideAnimations(),
     provideHotToastConfig({
       visibleToasts: 1,
       duration: 700,

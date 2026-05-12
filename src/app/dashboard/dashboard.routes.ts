@@ -16,29 +16,28 @@ export const DASHBOARD_ROUTES: Route[] = [
         path: '',
         // canActivate: [permissionGuard],
         // data: { permission: 'device_view' },
-        loadComponent: () =>
-          import('./components/home/home').then((m) => m.Home),
+        loadComponent: () => import('./pages/home/home').then((m) => m.Home),
       },
       {
         path: 'reports',
         // canActivate: [permissionGuard],
         // data: { permission: 'device_view' },
         loadComponent: () =>
-          import('./components/reports/reports').then((m) => m.Reports),
+          import('./pages/reports/reports').then((m) => m.Reports),
       },
       {
         path: 'riders',
         // canActivate: [permissionGuard],
         // data: { permission: 'device_view' },
         loadComponent: () =>
-          import('./components/riders/riders').then((m) => m.Riders),
+          import('./pages/riders/riders').then((m) => m.Riders),
       },
       {
         path: 'settings',
         // canActivate: [permissionGuard],
         // data: { permission: 'device_view' },
         loadComponent: () =>
-          import('./components/settings/settings').then((m) => m.Settings),
+          import('./pages/settings/settings').then((m) => m.Settings),
       },
       //   {
       //     path: 'analytics',
