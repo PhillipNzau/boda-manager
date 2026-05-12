@@ -22,40 +22,155 @@
 
   <div class="tabs" style="margin-bottom: 16px">
     <div
-      class="tab active"
-      onclick="App.ridersTab('riders', this)"
+      class="tab"
+      [class.active]="isRiders()"
+      (click)="isRiders.set(true)"
       id="ridersTabBtn"
     >
       Riders
     </div>
-    <div class="tab" onclick="App.ridersTab('bikes', this)" id="bikesTabBtn">
+    <div
+      class="tab"
+      [class.active]="!isRiders()"
+      (click)="isRiders.set(false)"
+      id="bikesTabBtn"
+    >
       Bikes
     </div>
   </div>
 
-  <div id="riders-panel">
-    <div id="ridersList"></div>
-    <div style="padding: 0 20px; margin-top: 4px">
-      <button
-        class="btn-modal-primary"
-        onclick="App.modals.open('add-rider')"
-        style="width: 100%; border-radius: 12px"
-      >
-        + Add New Rider
-      </button>
-    </div>
-  </div>
+  @if (isRiders()) {
+    <div id="riders-panel">
+      <div id="ridersList">
+        <!-- Empty State -->
+        @if (riders_data() === null) {
+          <div class="empty-state">
+            <div class="es-icon">👤</div>
+            <h3>No riders yet</h3>
+            <p>Add your first rider using the button below</p>
+          </div>
+        }
 
-  <div id="bikes-panel" style="display: none">
-    <div id="bikesList"></div>
-    <div style="padding: 0 20px; margin-top: 4px">
-      <button
-        class="btn-modal-primary"
-        onclick="App.modals.open('add-bike')"
-        style="width: 100%; border-radius: 12px"
-      >
-        + Add New Bike
-      </button>
+        @for (rider of riders_data(); track $index) {
+          <div class="rider-card">
+            <div class="rider-header">
+              <div
+                class="rider-avatar"
+                [style.background]="
+                  'hsl(' + (($index * 137.5) % 360) + ', 70%, 45%)'
+                "
+              >
+                {{ rider.full_name.split(' ').map(name => name.charAt(0)).join('').toUpperCase() }}
+              </div>
+
+              <div class="rider-info">
+                <div class="rider-name">{{ rider.full_name }}</div>
+                <div class="rider-bike">
+                  {{ rider.phone_number }} · {{ rider.license_no }}
+                </div>
+              </div>
+
+              <!-- <span class="status-pill status-paid">Active</span> -->
+            </div>
+
+            <div class="rider-stats">
+              <div class="rider-stat">
+                <div class="rv">KES {{ rider.daily_target }}</div>
+                <div class="rl">Daily Target</div>
+              </div>
+
+              <!-- <div class="rider-stat">
+              <div class="rv">2</div>
+              <div class="rl">Missed Days</div>
+            </div> -->
+
+              <div class="rider-stat">
+                <div class="rv">{{ rider.outstanding_debt }}</div>
+                <div class="rl">Outstanding Debt</div>
+              </div>
+            </div>
+
+            <div class="rider-actions">
+              <button class="btn-sm primary">Edit</button>
+              <button class="btn-sm">History</button>
+              <button class="btn-sm danger">Remove</button>
+            </div>
+          </div>
+        }
+      </div>
+      <div style="padding: 0 20px; margin-top: 4px">
+        <button
+          class="btn-modal-primary"
+          onclick="App.modals.open('add-rider')"
+          style="width: 100%; border-radius: 12px"
+        >
+          + Add New Rider
+        </button>
+      </div>
     </div>
-  </div>
+  } @else {
+    <div id="bikes-panel">
+      <div id="bikesList">
+        @if (bikes_data() === null) {
+          <!-- Empty State -->
+          <div class="empty-state">
+            <div class="es-icon">🏍️</div>
+            <h3>No bikes yet</h3>
+            <p>Add your motorcycle using the button below</p>
+          </div>
+        } @else {
+          @for (bike of bikes_data(); track $index) {
+            <!-- Bike Card -->
+            <div class="bike-card">
+              <div class="bike-header">
+                <div class="bike-icon">🏍️</div>
+
+                <div class="bike-info">
+                  <div class="bike-name">{{ bike.name }}</div>
+                  <div class="bike-plate">
+                    {{ bike.plate_number }} · {{ bike.model }}
+                  </div>
+                </div>
+
+                <div class="bike-status">
+                  <div class="status-dot active"></div>
+                  <span style="font-size: 12px; color: var(--text-muted)">
+                    {{ bike.status }}
+                  </span>
+                </div>
+              </div>
+
+              <div
+                style="
+                  font-size: 13px;
+                  color: var(--text-muted);
+                  margin-bottom: 12px;
+                "
+              >
+                Assigned to:
+                <strong style="color: var(--text)"
+                  >{{ riders_data()?.find(rider => rider.motorcycle_id === bike.id)?.full_name }}
+                </strong>
+              </div>
+
+              <div class="rider-actions">
+                <button class="btn-sm primary">Edit</button>
+
+                <button class="btn-sm danger">Remove</button>
+              </div>
+            </div>
+          }
+        }
+      </div>
+      <div style="padding: 0 20px; margin-top: 4px">
+        <button
+          class="btn-modal-primary"
+          onclick="App.modals.open('add-bike')"
+          style="width: 100%; border-radius: 12px"
+        >
+          + Add New Bike
+        </button>
+      </div>
+    </div>
+  }
 </div>
