@@ -10,6 +10,7 @@ export class StorageService {
       darkMode: false,
       notifications: true,
     },
+    user: {},
   };
 
   constructor() {
@@ -44,6 +45,19 @@ export class StorageService {
     }
   }
 
+  loadUser(): any {
+    try {
+      const data = JSON.parse(localStorage.getItem('user') || '{}');
+      // this.state.user = data
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error('Failed to load state:', error);
+    }
+  }
+
   toggleTheme(): void {
     this.state.settings.darkMode = !this.state.settings.darkMode;
 
@@ -69,5 +83,9 @@ export class StorageService {
 
   isAuthenticated(): boolean {
     return !!this.getToken();
+  }
+
+  resetUser(): void {
+    localStorage.clear();
   }
 }

@@ -18,12 +18,14 @@ export class Home implements OnInit {
   total_collected = signal<number>(0);
   total_riders = signal<number>(0);
   transactions_data = signal<TransactionStats[]>([]);
+  user = this.storageService.loadUser();
 
   ngOnInit(): void {
     document.documentElement.setAttribute(
       'data-theme',
       this.storageService.state.settings.darkMode ? 'dark' : '',
     );
+
     this.getDashboardData();
     this.getMonthlyAnalyticsData();
     this.listPaymentsData();

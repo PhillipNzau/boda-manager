@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { StorageService } from '../../../shared/service/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -8,6 +9,8 @@ import { StorageService } from '../../../shared/service/storage.service';
   styleUrl: './settings.css',
 })
 export class Settings implements OnInit {
+  private router = inject(Router);
+
   storageService = inject(StorageService);
 
   ngOnInit(): void {
@@ -19,5 +22,10 @@ export class Settings implements OnInit {
 
   toggleTheme(): void {
     this.storageService.toggleTheme();
+  }
+
+  logOut(): void {
+    this.storageService.resetUser();
+    this.router.navigate(['/auth']);
   }
 }
