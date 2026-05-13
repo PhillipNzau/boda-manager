@@ -3,13 +3,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Modal } from '../modal/modal';
 import { Rider } from '../../../dashboard/shared/models/riders-model';
 import { RidersService } from '../../../dashboard/shared/services/riders-service';
-import {
-  FormBuilder,
-  Validators,
-  ReactiveFormsModule,
-  FormControl,
-} from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { PaymentsService } from '../../../dashboard/shared/services/payments-service';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   selector: 'app-bottom-navigation',
@@ -24,7 +21,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './bottom-navigation.css',
 })
 export class BottomNavigation implements OnInit {
+  toastService = inject(HotToastService);
   ridersService = inject(RidersService);
+  paymentsService = inject(PaymentsService);
+
   private fb = inject(FormBuilder);
   riders_data = signal<Rider[]>([]);
 
@@ -72,6 +72,8 @@ export class BottomNavigation implements OnInit {
   }
 
   toggleAddModal(type?: boolean) {
+    this.paymentForm.reset({ method: 'mpesa', amount: 350 });
+
     if (type === undefined) {
       this.isModal.update((prev) => !prev);
     } else {
@@ -80,17 +82,26 @@ export class BottomNavigation implements OnInit {
   }
 
   onSubmit() {
-    if (this.paymentForm.valid) {
-      const formData = this.paymentForm.value;
-      console.log('Recording Payment:', formData);
+    const loadingToast = this.toastService.loading('Processing...');
+    const formData = this.paymentForm.value;
 
-      // Logic to send to your service
-      // this.paymentService.record(formData).subscribe(...)
+    this.paymentsService.createPayment(formData).subscribe({
+      next: (res) => {
+        this.toastService.success(`Payment Recorded Successfully!`, {
+          duration: 2000,
+        });
 
-      this.toggleAddModal(false);
-      this.paymentForm.reset({ method: 'mpesa', amount: 350 });
-    } else {
-      this.paymentForm.markAllAsTouched();
-    }
+        this.toggleAddModal(false);
+        loadingToast.close();
+      },
+      error: (err) => {
+        console.error('Error adding payment', err);
+
+        this.toastService.error(`Something went wrong!`, {
+          duration: 2000,
+        });
+        loadingToast.close();
+      },
+    });
   }
 }

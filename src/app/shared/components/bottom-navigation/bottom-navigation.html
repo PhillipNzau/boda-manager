@@ -3,6 +3,7 @@
 
 <nav class="bottom-nav">
   <a
+    (click)="toggleAddModal(false)"
     routerLink=""
     class="nav-item"
     [routerLinkActiveOptions]="{ exact: true }"
@@ -17,6 +18,7 @@
     <span>Home</span>
   </a>
   <a
+    (click)="toggleAddModal(false)"
     routerLink="reports"
     class="nav-item"
     routerLinkActive="active"
@@ -43,6 +45,7 @@
     </button>
   </div>
   <a
+    (click)="toggleAddModal(false)"
     routerLink="riders"
     routerLinkActive="active"
     class="nav-item"
@@ -61,6 +64,7 @@
     routerLinkActive="active"
     class="nav-item"
     data-screen="settings"
+    (click)="toggleAddModal(false)"
   >
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <circle cx="12" cy="12" r="3" />
@@ -72,71 +76,68 @@
   </a>
 </nav>
 
-@if (!isModal()) {
+@if (isModal()) {
   <app-modal (backdropClick)="toggleAddModal(false)">
-    <div class="w-full space-y-4 rounded-md p-5 h-full">
-      <div class="flex flex-col items-center gap-4">
-        <div class="modal-sheet">
-          <div class="modal-handle" (click)="toggleAddModal(false)"></div>
-          <div class="modal-title">💰 Record Payment</div>
+    <div class="modal-sheet">
+      <div class="modal-handle" (click)="toggleAddModal(false)"></div>
+      <div class="modal-title">💰 Record Payment</div>
 
-          <form [formGroup]="paymentForm">
-            <div class="modal-field">
-              <label for="payRider">Rider</label>
-              <select
-                formControlName="rider_id"
-                (change)="onRiderChange($event)"
-              >
-                @for (rider of riders_data(); track rider.id) {
-                  <option [value]="rider.id">{{ rider.full_name }}</option>
-                }
-              </select>
-            </div>
-
-            <div class="modal-field">
-              <label>Date</label>
-              <input type="date" formControlName="date" />
-            </div>
-
-            <div class="modal-field">
-              <label>Status</label>
-              <select formControlName="method">
-                <option value="mpesa">Mpesa Transaction</option>
-                <option value="cash">Cash Payment</option>
-              </select>
-            </div>
-
-            <div class="modal-field">
-              <label>Amount (KES)</label>
-              <input type="number" formControlName="amount" min="0" />
-              @if (
-                paymentForm.get("amount")?.invalid &&
-                paymentForm.get("amount")?.touched
-              ) {
-                <small class="text-red-500">Please enter a valid amount.</small>
-              }
-            </div>
-
-            <div class="modal-actions">
-              <button
-                type="button"
-                class="btn-modal-cancel"
-                (click)="toggleAddModal(false)"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                class="btn-modal-primary"
-                [disabled]="paymentForm.invalid"
-                (click)="onSubmit()"
-              >
-                Record Payment
-              </button>
-            </div>
-          </form>
+      <form [formGroup]="paymentForm">
+        <div class="modal-field">
+          <label for="payRider">Rider</label>
+          <select formControlName="rider_id" (change)="onRiderChange($event)">
+            @for (rider of riders_data(); track rider.id) {
+              <option [value]="rider.id">{{ rider.full_name }}</option>
+            }
+          </select>
         </div>
-      </div>
+
+        <div class="modal-field">
+          <label>Date</label>
+          <input type="date" formControlName="date" />
+        </div>
+
+        <div class="modal-field">
+          <label>Status</label>
+          <select formControlName="method">
+            <option value="mpesa">Mpesa Transaction</option>
+            <option value="cash">Cash Payment</option>
+          </select>
+        </div>
+
+        <div class="modal-field">
+          <label>Amount (KES)</label>
+          <input type="number" formControlName="amount" min="0" />
+          @if (
+            paymentForm.get("amount")?.invalid &&
+            paymentForm.get("amount")?.touched
+          ) {
+            <small class="text-red-500">Please enter a valid amount.</small>
+          }
+        </div>
+
+        <div class="modal-actions">
+          <button
+            type="button"
+            class="btn-modal-cancel"
+            (click)="toggleAddModal(false)"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            [class]="
+              paymentForm.invalid
+                ? 'btn-primary bg-slate-300! text-slate-400!'
+                : 'btn-modal-primary'
+            "
+            [disabled]="paymentForm.invalid"
+            (click)="onSubmit()"
+          >
+            Record Payment
+          </button>
+        </div>
+      </form>
     </div>
   </app-modal>
 }

@@ -1,14 +1,9 @@
-import {
-  Component,
-  EventEmitter,
-  input,
-  Input,
-  output,
-  Output,
-} from '@angular/core';
+import { Component, input, output } from '@angular/core';
+import { bottomSheetAnimation, backdropAnimation } from './animationsTrigger';
 
 @Component({
   selector: 'app-modal',
+  animations: [bottomSheetAnimation, backdropAnimation],
   standalone: true,
   templateUrl: './modal.html',
   styleUrl: './modal.css',

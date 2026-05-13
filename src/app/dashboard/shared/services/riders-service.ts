@@ -12,9 +12,12 @@ export class RidersService {
   private http = inject(HttpClient);
   private router = inject(Router);
 
+  // riders
   listRidersUrl = environment.listRiders;
   createRiderUrl = environment.createRider;
   deleteRiderUrl = environment.deleteRider;
+
+  // motorcycle
   listMotorcyclesUrl = environment.listMotorcycles;
   createMotorcycleUrl = environment.createMotorcycle;
 
