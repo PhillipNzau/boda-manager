@@ -93,7 +93,9 @@
             <div class="rider-actions">
               <button class="btn-sm primary">Edit</button>
               <button class="btn-sm">History</button>
-              <button class="btn-sm danger">Remove</button>
+              <button class="btn-sm danger" (click)="removeAsset(rider)">
+                Remove
+              </button>
             </div>
           </div>
         }
@@ -101,7 +103,7 @@
       <div style="padding: 0 20px; margin-top: 4px">
         <button
           class="btn-modal-primary"
-          onclick="App.modals.open('add-rider')"
+          (click)="toggleAddRiderModal('rider')"
           style="width: 100%; border-radius: 12px"
         >
           + Add New Rider
@@ -156,7 +158,7 @@
               <div class="rider-actions">
                 <button class="btn-sm primary">Edit</button>
 
-                <button class="btn-sm danger">Remove</button>
+                <!-- <button class="btn-sm danger">Remove</button> -->
               </div>
             </div>
           }
@@ -165,7 +167,7 @@
       <div style="padding: 0 20px; margin-top: 4px">
         <button
           class="btn-modal-primary"
-          onclick="App.modals.open('add-bike')"
+          (click)="toggleAddRiderModal('bike')"
           style="width: 100%; border-radius: 12px"
         >
           + Add New Bike
@@ -174,3 +176,188 @@
     </div>
   }
 </div>
+
+<!-- modals -->
+
+@if (isAddRiderModal()) {
+  <app-modal (backdropClick)="toggleAddRiderModal('rider')">
+    <div class="modal-sheet">
+      <div class="modal-handle" (click)="toggleAddRiderModal('rider')"></div>
+      <div class="modal-title text-center">Add Rider</div>
+
+      <form [formGroup]="riderForm">
+        <!-- fullname -->
+        <div class="modal-field">
+          <label>Full Name</label>
+          <input type="text" formControlName="full_name" />
+          @if (
+            riderForm.get("full_name")?.invalid &&
+            riderForm.get("full_name")?.touched
+          ) {
+            <small class="text-red-500">Please enter a valid Name.</small>
+          }
+        </div>
+
+        <!-- Phone Number -->
+        <div class="modal-field">
+          <label>Phone Number</label>
+          <input type="tel" formControlName="phone_number" />
+          @if (
+            riderForm.get("phone_number")?.invalid &&
+            riderForm.get("phone_number")?.touched
+          ) {
+            <small class="text-red-500"
+              >Please enter a valid Phone Number.</small
+            >
+          }
+        </div>
+
+        <!-- License Number -->
+        <div class="modal-field">
+          <label>License Number</label>
+          <input type="text" formControlName="license_no" />
+          @if (
+            riderForm.get("license_no")?.invalid &&
+            riderForm.get("license_no")?.touched
+          ) {
+            <small class="text-red-500"
+              >Please enter a valid License Number.</small
+            >
+          }
+        </div>
+
+        <!-- Daily target -->
+        <div class="modal-field">
+          <label>Daily Target (KES)</label>
+          <input type="number" formControlName="daily_target" min="0" />
+          @if (
+            riderForm.get("daily_target")?.invalid &&
+            riderForm.get("daily_target")?.touched
+          ) {
+            <small class="text-red-500">Please enter a valid amount.</small>
+          }
+        </div>
+
+        <!-- Motorcycle  -->
+        <div class="modal-field">
+          <label for="payRider">Motorcycle</label>
+          <select formControlName="motorcycle_id">
+            @for (ride of bikes_data(); track ride.id) {
+              <option [value]="ride.id">
+                {{ ride.model }} - {{ ride.plate_number }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button
+            type="button"
+            class="btn-modal-cancel"
+            (click)="toggleAddRiderModal('rider')"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            [class]="
+              riderForm.invalid
+                ? 'btn-primary bg-slate-300! text-slate-400!'
+                : 'btn-modal-primary'
+            "
+            [disabled]="riderForm.invalid"
+            (click)="onAddRiderSubmit()"
+          >
+            Add Rider
+          </button>
+        </div>
+      </form>
+    </div>
+  </app-modal>
+}
+
+@if (isAddBikeModal()) {
+  <app-modal (backdropClick)="toggleAddRiderModal('bike')">
+    <div class="modal-sheet">
+      <div class="modal-handle" (click)="toggleAddRiderModal('bike')"></div>
+      <div class="modal-title text-center">Add Motorcycle</div>
+
+      <form [formGroup]="bikeForm">
+        <!-- name -->
+        <div class="modal-field">
+          <label>Name</label>
+          <input type="text" formControlName="name" />
+          @if (bikeForm.get("name")?.invalid && bikeForm.get("name")?.touched) {
+            <small class="text-red-500">Please enter a valid Name.</small>
+          }
+        </div>
+
+        <!-- Plate Number -->
+        <div class="modal-field">
+          <label>Plate Number</label>
+          <input type="text" formControlName="plate_number" />
+          @if (
+            bikeForm.get("plate_number")?.invalid &&
+            bikeForm.get("plate_number")?.touched
+          ) {
+            <small class="text-red-500"
+              >Please enter a valid Plate Number.</small
+            >
+          }
+        </div>
+
+        <!-- Model -->
+        <div class="modal-field">
+          <label>Make or Model</label>
+          <input type="text" formControlName="model" />
+          @if (
+            bikeForm.get("model")?.invalid && bikeForm.get("model")?.touched
+          ) {
+            <small class="text-red-500">Please enter a valid Model.</small>
+          }
+        </div>
+
+        <!-- Year -->
+        <div class="modal-field">
+          <label>Year</label>
+          <input
+            type="number"
+            formControlName="year"
+            min="1900"
+            [max]="currentYear"
+            placeholder="e.g. 2021"
+            inputmode="numeric"
+            pattern="[0-9]*"
+          />
+          @if (bikeForm.get("year")?.invalid && bikeForm.get("year")?.touched) {
+            <small class="text-red-500">
+              Please enter a valid year between 1900 and {{ currentYear }}.
+            </small>
+          }
+        </div>
+
+        <div class="modal-actions">
+          <button
+            type="button"
+            class="btn-modal-cancel"
+            (click)="toggleAddRiderModal('bike')"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            [class]="
+              bikeForm.invalid
+                ? 'btn-primary bg-slate-300! text-slate-400!'
+                : 'btn-modal-primary'
+            "
+            [disabled]="bikeForm.invalid"
+            (click)="onAddBikeSubmit()"
+          >
+            Add Bike
+          </button>
+        </div>
+      </form>
+    </div>
+  </app-modal>
+}

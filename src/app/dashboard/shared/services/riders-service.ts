@@ -24,24 +24,46 @@ export class RidersService {
   listRiders() {
     return this.http.get<Rider[]>(this.listRidersUrl).pipe(
       map((res: Rider[]) => {
-        return res;
+        return res.reverse();
       }),
     );
   }
   listMotorcycles() {
     return this.http.get<Motorcycle[]>(this.listMotorcyclesUrl).pipe(
       map((res: Motorcycle[]) => {
+        return res.reverse();
+      }),
+    );
+  }
+
+  createRider(paymentData: any) {
+    return this.http.post(this.createRiderUrl, paymentData).pipe(
+      map((res) => {
+        // if (res.status === 200) {
+        //   return res;
+        // }
         return res;
       }),
     );
   }
 
-  // getSingleCredential(credentialId: string) {
-  //   return this.http.get(this.listSingleCredentialUrl + credentialId).pipe(
-  //     map((res) => {
-  //       return res;
-  //     })
-  //   );
-  // }
+  createMotorcycle(paymentData: any) {
+    return this.http.post(this.createMotorcycleUrl, paymentData).pipe(
+      map((res) => {
+        // if (res.status === 200) {
+        //   return res;
+        // }
+        return res;
+      }),
+    );
+  }
+
+  deleteRider(riderId: string) {
+    return this.http.delete(this.deleteRiderUrl + riderId).pipe(
+      map((res) => {
+        return res;
+      }),
+    );
+  }
   // getDashboardSummary()
 }
