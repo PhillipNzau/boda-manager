@@ -68,7 +68,28 @@
   <div class="settings-section">
     <h4>Business</h4>
     <div class="settings-item" onclick="App.modals.open('edit-daily-rate')">
-      <div class="si-icon" style="background: #f3efff; font-size: 18px">💰</div>
+      <div class="si-icon" style="background: #f3efff; font-size: 18px">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#ff00fd"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-hand-coins-icon lucide-hand-coins"
+        >
+          <path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" />
+          <path
+            d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"
+          />
+          <path d="m2 16 6 6" />
+          <circle cx="16" cy="9" r="2.9" />
+          <circle cx="6" cy="5" r="3" />
+        </svg>
+      </div>
       <div class="si-text">
         <p>Daily Remittance</p>
         <small id="dailyRateDisplay">KES 350 per rider</small>
@@ -86,7 +107,26 @@
       </svg>
     </div>
     <div class="settings-item">
-      <div class="si-icon" style="background: #ecfdf5; font-size: 18px">📊</div>
+      <div class="si-icon" style="background: #ecfdf5; font-size: 18px">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#881aff"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-chart-column-stacked-icon lucide-chart-column-stacked"
+        >
+          <path d="M11 13H7" />
+          <path d="M19 9h-4" />
+          <path d="M3 3v16a2 2 0 0 0 2 2h16" />
+          <rect x="15" y="5" width="4" height="12" rx="1" />
+          <rect x="7" y="8" width="4" height="9" rx="1" />
+        </svg>
+      </div>
       <div class="si-text">
         <p>Total Transactions</p>
         <small id="txCount">0 recorded</small>
@@ -110,7 +150,25 @@
       ></div>
     </div>
     <div class="settings-item">
-      <div class="si-icon" style="background: #eff6ff; font-size: 18px">🔔</div>
+      <div class="si-icon" style="background: #eff6ff; font-size: 18px">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#0869ff"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-bell-icon lucide-bell"
+        >
+          <path d="M10.268 21a2 2 0 0 0 3.464 0" />
+          <path
+            d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"
+          />
+        </svg>
+      </div>
       <div class="si-text">
         <p>Notifications</p>
         <small>Payment reminders</small>
@@ -125,8 +183,25 @@
 
   <div class="settings-section">
     <h4>Data</h4>
-    <div class="settings-item" onclick="App.exports.csv()">
-      <div class="si-icon" style="background: #ecfdf5; font-size: 18px">📥</div>
+    <div class="settings-item" (click)="downloadReport()">
+      <div class="si-icon" style="background: #ecfdf5; font-size: 18px">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#ff7e00"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-download-icon lucide-download"
+        >
+          <path d="M12 15V3" />
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <path d="m7 10 5 5 5-5" />
+        </svg>
+      </div>
       <div class="si-text">
         <p>Export to CSV</p>
         <small>Download all transactions</small>
@@ -144,7 +219,26 @@
       </svg>
     </div>
     <div class="settings-item" (click)="logOut()">
-      <div class="si-icon" style="background: #fef2f2; font-size: 18px">🚪</div>
+      <div class="si-icon" style="background: #fef2f2; font-size: 18px">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#ff343b"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-user-key-icon lucide-user-key"
+        >
+          <path d="M20 11v6" />
+          <path d="M20 13h2" />
+          <path d="M3 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 2.072.578" />
+          <circle cx="10" cy="7" r="4" />
+          <circle cx="20" cy="19" r="2" />
+        </svg>
+      </div>
       <div class="si-text">
         <p style="color: var(--red-500)">Sign Out</p>
         <small>Log out of this device</small>

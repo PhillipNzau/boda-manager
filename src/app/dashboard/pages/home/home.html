@@ -2,7 +2,7 @@
 <div class="screen active" id="screen-home">
   <div class="top-header">
     <div class="header-left">
-      <h1 id="greetingLabel">Good Morning</h1>
+      <h1 id="greetingLabel">{{ label }}</h1>
       <h2 id="greetingName">{{ user.name }}</h2>
     </div>
     <div class="header-actions">
@@ -24,7 +24,9 @@
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
         </svg>
       </div>
-      <div class="avatar-btn" id="avatarBtn">AD</div>
+      <div class="avatar-btn" id="avatarBtn">
+        {{ user.name.split(' ').map(name => name.charAt(0)).join('').toUpperCase() }}
+      </div>
     </div>
   </div>
 
@@ -50,17 +52,17 @@
     </div>
   </div>
 
-  <div class="insight-banner" id="insightBanner">
+  <!-- <div class="insight-banner" id="insightBanner">
     <div class="insight-text">
       <span>💡</span> <span id="insightText">Loading insight...</span>
     </div>
-  </div>
+  </div> -->
 
   <div class="section-header" style="margin-top: 20px">
     <h3>Quick Actions</h3>
   </div>
   <div class="quick-actions">
-    <div class="quick-action" onclick="App.modals.open('record-payment')">
+    <div class="quick-action">
       <div class="qa-icon qa-green">
         <svg
           viewBox="0 0 24 24"
@@ -105,7 +107,7 @@
       </div>
       <span class="qa-label">Riders</span>
     </div>
-    <div class="quick-action">
+    <div class="quick-action" (click)="downloadReport()">
       <div class="qa-icon qa-red">
         <svg
           viewBox="0 0 24 24"
@@ -124,7 +126,7 @@
 
   <div class="section-header">
     <h3>Recent Transactions</h3>
-    <button class="see-all" onclick="App.navigate('report')">See all</button>
+    <button class="see-all" routerLink="reports">See all</button>
   </div>
   <div class="tx-list" id="recentTxList">
     @if (transactions_data() === null) {
@@ -133,7 +135,78 @@
         <h3>No transactions yet</h3>
         <p>Record your first payment using the quick action above</p>
       </div>
-    } @else {}
+    } @else {
+      <!-- Recent Transactions List -->
+      <div id="recentTxList">
+        @for (transaction of transactions_data(); track $index) {
+          <!-- Transaction Item: Paid -->
+          <div class="tx-item">
+            <div class="tx-icon" style="background: #ecfdf5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#f5bf76"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-hand-coins-icon lucide-hand-coins"
+              >
+                <path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" />
+                <path
+                  d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"
+                />
+                <path d="m2 16 6 6" />
+                <circle cx="16" cy="9" r="2.9" />
+                <circle cx="6" cy="5" r="3" />
+              </svg>
+            </div>
+            <div class="tx-info">
+              <div class="tx-name">{{ transaction.method }}</div>
+              <div class="tx-sub">{{ transaction.date | date }}</div>
+            </div>
+            <div class="flex flex-col">
+              <div class="tx-amount credit">+KES {{ transaction.amount }}</div>
+              <div class="tx-amount missed text-xs!">
+                −KES {{ transaction.balance }}
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Transaction Item: Paid -->
+        <!-- <div class="tx-item">
+          <div class="tx-icon" style="background: #ecfdf5">💰</div>
+          <div class="tx-info">
+            <div class="tx-name">John Doe</div>
+            <div class="tx-sub">Mon, May 13 · Some note here</div>
+          </div>
+          <div class="tx-amount credit">+KES 350</div>
+        </div> -->
+
+        <!-- Transaction Item: Partial -->
+        <!-- <div class="tx-item">
+          <div class="tx-icon" style="background: #fef3c7">⚠️</div>
+          <div class="tx-info">
+            <div class="tx-name">Jane Smith</div>
+            <div class="tx-sub">Sun, May 12</div>
+          </div>
+          <div class="tx-amount partial">+KES 200</div>
+        </div> -->
+
+        <!-- Transaction Item: Missed -->
+        <!-- <div class="tx-item">
+          <div class="tx-icon" style="background: #fef2f2">❌</div>
+          <div class="tx-info">
+            <div class="tx-name">Unknown Rider</div>
+            <div class="tx-sub">Sat, May 11</div>
+          </div>
+          <div class="tx-amount missed">−KES 350</div>
+        </div> -->
+      </div>
+    }
   </div>
 
   <div style="height: 8px"></div>

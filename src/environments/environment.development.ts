@@ -9,7 +9,7 @@ const paymentsBaseUrl = url + 'payments';
 const expensesBaseUrl = url + 'expenses';
 const analyticsBaseUrl = url + 'analytics';
 const alertsBaseUrl = url + 'alerts';
-const exportBaseUrl = url + 'export';
+const exportBaseUrl = url + 'exports/report';
 const importBaseUrl = url + 'import';
 const dashboardBaseUrl = url + 'dashboard';
 
@@ -51,6 +51,5 @@ export const environment = {
   motorcycleProfitability: analyticsBaseUrl + '/motorcycles/',
 
   ///////////////** IMPORT / EXPORT URLS **///////////////////
-  exportCredentialsExcel: exportBaseUrl + '/credentials/excel',
-  importCredentialsExcel: importBaseUrl + '/credentials/excel',
+  exportExcel: exportBaseUrl,
 };

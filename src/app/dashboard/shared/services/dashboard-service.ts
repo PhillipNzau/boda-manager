@@ -21,6 +21,13 @@ export class DashboardService {
   monthlyAnalyticsUrl = environment.monthlyAnalytics;
   motorcycleProfitabilityUrl = environment.motorcycleProfitability;
   listPaymentsUrl = environment.listPayments;
+  exportExcelUrl = environment.exportExcel;
+
+  exportExcel() {
+    return this.http.get(this.exportExcelUrl, {
+      responseType: 'blob', // important for files
+    });
+  }
 
   getDashboardSummary() {
     return this.http.get<DashboardStats>(this.dashboardSummaryUrl).pipe(
