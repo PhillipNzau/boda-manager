@@ -5,6 +5,7 @@ import { environment } from '../../../../environments/environment.development';
 import { map } from 'rxjs';
 import {
   DashboardStats,
+  Expenses,
   MonthlyAnalyticsStats,
   TransactionStats,
 } from '../models/dashboard-model';
@@ -22,6 +23,7 @@ export class DashboardService {
   motorcycleProfitabilityUrl = environment.motorcycleProfitability;
   listPaymentsUrl = environment.listPayments;
   exportExcelUrl = environment.exportExcel;
+  listExpensesUrl = environment.listExpenses;
 
   exportExcel() {
     return this.http.get(this.exportExcelUrl, {
@@ -38,16 +40,26 @@ export class DashboardService {
   }
 
   getMonthlyAnalytics() {
-    return this.http.get<MonthlyAnalyticsStats>(this.monthlyAnalyticsUrl).pipe(
-      map((res: MonthlyAnalyticsStats) => {
-        return res;
-      }),
-    );
+    return this.http
+      .get<MonthlyAnalyticsStats[]>(this.monthlyAnalyticsUrl)
+      .pipe(
+        map((res: MonthlyAnalyticsStats[]) => {
+          return res;
+        }),
+      );
   }
 
   listPayments() {
     return this.http.get<TransactionStats[]>(this.listPaymentsUrl).pipe(
       map((res: TransactionStats[]) => {
+        return res;
+      }),
+    );
+  }
+
+  listExpenses() {
+    return this.http.get<Expenses[]>(this.listExpensesUrl).pipe(
+      map((res: Expenses[]) => {
         return res;
       }),
     );

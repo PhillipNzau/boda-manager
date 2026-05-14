@@ -98,8 +98,13 @@
             </div>
 
             <div class="rider-actions">
-              <button class="btn-sm primary">Edit</button>
-              <button class="btn-sm">History</button>
+              <button
+                class="btn-sm primary"
+                (click)="toggleAddRiderModal('edit-rider', rider)"
+              >
+                Edit
+              </button>
+              <!-- <button class="btn-sm">History</button> -->
               <button class="btn-sm danger" (click)="removeAsset(rider)">
                 Remove
               </button>
@@ -163,9 +168,12 @@
                 </div>
 
                 <div class="bike-status">
-                  <div class="status-dot active"></div>
+                  <div
+                    class="status-dot"
+                    [class]="riders_data().find(rider => rider.motorcycle_id === bike.id)?.full_name ? 'active' : 'maintenance'"
+                  ></div>
                   <span style="font-size: 12px; color: var(--text-muted)">
-                    {{ bike.status }}
+                    {{ `${riders_data().find(rider => rider.motorcycle_id === bike.id)?.full_name ? bike.status : 'inactive'} ` }}
                   </span>
                 </div>
               </div>
@@ -184,9 +192,14 @@
               </div>
 
               <div class="rider-actions">
-                <button class="btn-sm primary">Edit</button>
+                <!-- <button
+                  class="btn-sm primary"
+                  (click)="toggleAddRiderModal('edit-bike')"
+                >
+                  Edit
+                </button>
 
-                <!-- <button class="btn-sm danger">Remove</button> -->
+                <button class="btn-sm danger">Remove</button> -->
               </div>
             </div>
           }
@@ -206,7 +219,94 @@
 </div>
 
 <!-- modals -->
+<!-- edit rider -->
+@if (isEditRiderModal()) {
+  <app-modal (backdropClick)="toggleAddRiderModal('edit-rider')">
+    <div class="modal-sheet">
+      <div
+        class="modal-handle"
+        (click)="toggleAddRiderModal('edit-rider')"
+      ></div>
+      <div class="modal-title text-center">Edit Rider</div>
 
+      <form [formGroup]="editRiderForm">
+        <!-- fullname -->
+        <div class="modal-field">
+          <label>Full Name</label>
+          <input type="text" formControlName="full_name" />
+          @if (
+            riderForm.get("full_name")?.invalid &&
+            riderForm.get("full_name")?.touched
+          ) {
+            <small class="text-red-500">Please enter a valid Name.</small>
+          }
+        </div>
+
+        <!-- Phone Number -->
+        <div class="modal-field">
+          <label>Phone Number</label>
+          <input type="tel" formControlName="phone_number" />
+          @if (
+            riderForm.get("phone_number")?.invalid &&
+            riderForm.get("phone_number")?.touched
+          ) {
+            <small class="text-red-500"
+              >Please enter a valid Phone Number.</small
+            >
+          }
+        </div>
+
+        <!-- Daily target -->
+        <div class="modal-field">
+          <label>Daily Target (KES)</label>
+          <input type="number" formControlName="daily_target" min="0" />
+          @if (
+            riderForm.get("daily_target")?.invalid &&
+            riderForm.get("daily_target")?.touched
+          ) {
+            <small class="text-red-500">Please enter a valid amount.</small>
+          }
+        </div>
+
+        <!-- Motorcycle  -->
+        <div class="modal-field">
+          <label for="payRider">Motorcycle</label>
+          <select formControlName="motorcycle_id">
+            @for (ride of bikes_data(); track ride.id) {
+              <option [value]="ride.id">
+                {{ ride.model }} - {{ ride.plate_number }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button
+            type="button"
+            class="btn-modal-cancel"
+            (click)="toggleAddRiderModal('edit-rider')"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            [class]="
+              editRiderForm.invalid
+                ? 'btn-primary bg-slate-300! text-slate-400!'
+                : 'btn-modal-primary'
+            "
+            [disabled]="editRiderForm.invalid"
+            (click)="onEditRiderSubmit()"
+          >
+            Edit Rider
+          </button>
+        </div>
+      </form>
+    </div>
+  </app-modal>
+}
+
+<!-- add rider -->
 @if (isAddRiderModal()) {
   <app-modal (backdropClick)="toggleAddRiderModal('rider')">
     <div class="modal-sheet">
@@ -304,6 +404,7 @@
   </app-modal>
 }
 
+<!-- add bike -->
 @if (isAddBikeModal()) {
   <app-modal (backdropClick)="toggleAddRiderModal('bike')">
     <div class="modal-sheet">

@@ -24,11 +24,13 @@ export const environment = {
   ///////////////** RIDERS URLS **///////////////////
   listRiders: ridersBaseUrl,
   createRider: ridersBaseUrl,
+  editRider: ridersBaseUrl + '/',
   deleteRider: ridersBaseUrl + '/',
 
   ///////////////** MOTORCYCLES URLS **///////////////////
   listMotorcycles: motorcyclesBaseUrl,
   createMotorcycle: motorcyclesBaseUrl,
+  editMotorcycle: motorcyclesBaseUrl + '/',
 
   ///////////////** RIDES URLS **///////////////////
   listRides: ridesBaseUrl,

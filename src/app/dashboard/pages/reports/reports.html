@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <div class="tabs">
+  <!-- <div class="tabs">
     <div class="tab active" onclick="App.reports.setTab('week', this)">
       Weekly
     </div>
@@ -31,29 +31,9 @@
     <div class="tab" onclick="App.reports.setTab('calendar', this)">
       Calendar
     </div>
-  </div>
+  </div> -->
 
-  <div id="report-week">
-    <div class="section-header"><h3>This Week</h3></div>
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="sc-icon">💰</div>
-        <div class="sc-val" id="wk-income">KES 0</div>
-        <div class="sc-lbl">Total Collected</div>
-        <div class="sc-trend trend-up" id="wk-rate">0% collection rate</div>
-      </div>
-      <div class="stat-card">
-        <div class="sc-icon">❌</div>
-        <div class="sc-val" id="wk-missed">0</div>
-        <div class="sc-lbl">Days Missed</div>
-        <div class="sc-trend trend-down" id="wk-loss">KES 0 lost</div>
-      </div>
-    </div>
-    <div class="section-header"><h3>Daily Breakdown</h3></div>
-    <div class="bar-chart-container" id="weekBarChart"></div>
-  </div>
-
-  <div id="report-month" style="display: none">
+  <div id="report-month">
     <div class="section-header"><h3>This Month</h3></div>
     <div class="chart-wrapper">
       <div class="chart-card">
@@ -71,10 +51,84 @@
       </div>
     </div>
     <div class="section-header"><h3>Monthly History</h3></div>
-    <div id="monthHistory" style="padding: 0 20px"></div>
+    <div id="monthHistory" style="padding: 0 20px">
+      <div id="history">
+        @if (monthly_analytics() === null) {
+          <!-- Empty State -->
+          <p
+            style="
+              text-align: center;
+              color: var(--text-muted);
+              padding: 20px;
+              font-size: 14px;
+            "
+          >
+            No history yet
+          </p>
+        } @else {
+          <!-- Monthly History Card -->
+          <div
+            style="
+              background: var(--card);
+              border: 1px solid var(--border);
+              border-radius: var(--radius-sm);
+              padding: 14px 16px;
+              margin-bottom: 8px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <div>
+              <div
+                style="font-size: 14px; font-weight: 600; color: var(--text)"
+              >
+                {{ monthly_analytics().month }}
+              </div>
+
+              <div style="font-size: 12px; color: var(--text-muted)">
+                Expenses {{ monthly_analytics().expenses }} · Revenue
+                {{ monthly_analytics().revenue }}
+              </div>
+            </div>
+
+            <div
+              style="
+                font-family: &quot;DM Mono&quot;, monospace;
+                font-size: 16px;
+                font-weight: 700;
+                color: var(--purple-500);
+              "
+            >
+              KES {{ monthly_analytics().profit }}
+            </div>
+          </div>
+        }
+      </div>
+    </div>
   </div>
 
-  <div id="report-calendar" style="display: none">
+  <!-- 
+  <div id="report-week" style="display: none">
+    <div class="section-header"><h3>This Week</h3></div>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="sc-icon">💰</div>
+        <div class="sc-val" id="wk-income">KES 0</div>
+        <div class="sc-lbl">Total Collected</div>
+        <div class="sc-trend trend-up" id="wk-rate">0% collection rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon">❌</div>
+        <div class="sc-val" id="wk-missed">0</div>
+        <div class="sc-lbl">Days Missed</div>
+        <div class="sc-trend trend-down" id="wk-loss">KES 0 lost</div>
+      </div>
+    </div>
+    <div class="section-header"><h3>Daily Breakdown</h3></div>
+    <div class="bar-chart-container" id="weekBarChart"></div>
+  </div> -->
+  <!-- <div id="report-calendar" style="display: none">
     <div class="month-picker">
       <button class="month-nav" onclick="App.calendar.prev()">‹</button>
       <span id="calMonthLabel">November 2025</span>
@@ -97,5 +151,5 @@
     </div>
     <div class="section-header"><h3>Mark Payments</h3></div>
     <div id="dailyPaymentRows"></div>
-  </div>
+  </div> -->
 </div>

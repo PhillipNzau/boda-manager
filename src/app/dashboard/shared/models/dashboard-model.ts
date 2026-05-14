@@ -26,3 +26,17 @@ export interface TransactionStats {
   updated_at: string;
   motorcycle_id?: string;
 }
+
+export interface Expenses {
+  _id: string;
+  created_at: string;
+  daily_target: number;
+  full_name: string;
+  last_payment_date: string;
+  license_no: string;
+  motorcycle_id: string;
+  outstanding_debt: number;
+  phone_number: string;
+  updated_at: string;
+  user_id: string;
+}

@@ -16,6 +16,7 @@ export class RidersService {
   listRidersUrl = environment.listRiders;
   createRiderUrl = environment.createRider;
   deleteRiderUrl = environment.deleteRider;
+  editRiderUrl = environment.editRider;
 
   // motorcycle
   listMotorcyclesUrl = environment.listMotorcycles;
@@ -36,8 +37,8 @@ export class RidersService {
     );
   }
 
-  createRider(paymentData: any) {
-    return this.http.post(this.createRiderUrl, paymentData).pipe(
+  createRider(riderData: any) {
+    return this.http.post(this.createRiderUrl, riderData).pipe(
       map((res) => {
         // if (res.status === 200) {
         //   return res;
@@ -47,8 +48,19 @@ export class RidersService {
     );
   }
 
-  createMotorcycle(paymentData: any) {
-    return this.http.post(this.createMotorcycleUrl, paymentData).pipe(
+  editRider(riderData: any) {
+    return this.http.put(this.editRiderUrl + riderData.id, riderData).pipe(
+      map((res) => {
+        // if (res.status === 200) {
+        //   return res;
+        // }
+        return res;
+      }),
+    );
+  }
+
+  createMotorcycle(rideData: any) {
+    return this.http.post(this.createMotorcycleUrl, rideData).pipe(
       map((res) => {
         // if (res.status === 200) {
         //   return res;

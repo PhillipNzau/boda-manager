@@ -20,6 +20,8 @@ export class Riders implements OnInit {
   storageService = inject(StorageService);
   ridersService = inject(RidersService);
 
+  isEditRiderModal = signal<boolean>(false);
+  isEditBikeModal = signal<boolean>(false);
   isAddRiderModal = signal<boolean>(false);
   isAddBikeModal = signal<boolean>(false);
 
@@ -32,6 +34,14 @@ export class Riders implements OnInit {
     full_name: ['', Validators.required],
     phone_number: ['', Validators.required],
     license_no: ['', Validators.required],
+    daily_target: [350, [Validators.required, Validators.min(0)]],
+    motorcycle_id: ['', Validators.required],
+  });
+
+  editRiderForm = this.fb.group({
+    id: [''],
+    full_name: ['', Validators.required],
+    phone_number: ['', Validators.required],
     daily_target: [350, [Validators.required, Validators.min(0)]],
     motorcycle_id: ['', Validators.required],
   });
@@ -89,16 +99,30 @@ export class Riders implements OnInit {
     // });
   }
 
-  toggleAddRiderModal(type?: string) {
+  toggleAddRiderModal(type?: string, selectedAsset?: any) {
     this.riderForm.reset();
 
     if (type === 'rider') {
       this.isAddRiderModal.update((prev) => !prev);
     } else if (type === 'bike') {
       this.isAddBikeModal.update((prev) => !prev);
+    } else if (type === 'edit-rider' && selectedAsset) {
+      this.editRiderForm.patchValue({
+        id: selectedAsset._id,
+        full_name: selectedAsset.full_name,
+        phone_number: selectedAsset.phone_number,
+        daily_target: selectedAsset.daily_target,
+        motorcycle_id: selectedAsset.motorcycle_id,
+      });
+
+      this.isEditRiderModal.update((prev) => !prev);
+    } else if (type === 'edit-bike') {
+      this.isEditBikeModal.update((prev) => !prev);
     } else {
       this.isAddBikeModal.set(false);
       this.isAddRiderModal.set(false);
+      this.isEditRiderModal.set(false);
+      this.isEditBikeModal.set(false);
     }
   }
 
@@ -113,6 +137,30 @@ export class Riders implements OnInit {
     const formData = this.riderForm.value;
 
     this.ridersService.createRider(formData).subscribe({
+      next: (res) => {
+        this.toastService.success(`Rider Created Successfully!`, {
+          duration: 2000,
+        });
+
+        this.toggleAddRiderModal();
+        loadingToast.close();
+        this.getRidersData();
+      },
+      error: (err) => {
+        console.error('Error adding rider', err);
+
+        this.toastService.error(`Something went wrong!`, {
+          duration: 2000,
+        });
+        loadingToast.close();
+      },
+    });
+  }
+  onEditRiderSubmit() {
+    const loadingToast = this.toastService.loading('Processing...');
+    const formData = this.editRiderForm.value;
+
+    this.ridersService.editRider(formData).subscribe({
       next: (res) => {
         this.toastService.success(`Rider Created Successfully!`, {
           duration: 2000,
