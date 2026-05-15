@@ -5,7 +5,6 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
-// import { provideServiceWorker } from '@angular/service-worker';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import {
@@ -14,6 +13,7 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { authInterceptor } from './auth/services/auth-interceptor';
+import { provideServiceWorker } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,9 +27,9 @@ export const appConfig: ApplicationConfig = {
       duration: 700,
       position: 'bottom-center',
     }),
-    // provideServiceWorker('ngsw-worker.js', {
-    //   enabled: true,
-    //   registrationStrategy: 'registerWhenStable:30000',
-    // }),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: true,
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
 };

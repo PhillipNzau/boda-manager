@@ -22,8 +22,22 @@
       "updateMode": "prefetch",
       "resources": {
         "files": [
+          "/assets/**",
+          "/*.(png|jpg|jpeg|svg|webp)",
           "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-cache",
+      "urls": ["https://boda-manager-backend.onrender.com/**"],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 100,
+        "maxAge": "1h",
+        "timeout": "10s"
       }
     }
   ]
