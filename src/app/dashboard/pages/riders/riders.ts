@@ -162,7 +162,7 @@ export class Riders implements OnInit {
 
     this.ridersService.editRider(formData).subscribe({
       next: (res) => {
-        this.toastService.success(`Rider Created Successfully!`, {
+        this.toastService.success(`Rider Updated Successfully!`, {
           duration: 2000,
         });
 
@@ -173,7 +173,7 @@ export class Riders implements OnInit {
       error: (err) => {
         console.error('Error adding rider', err);
 
-        this.toastService.error(`Something went wrong!`, {
+        this.toastService.error(`Something went wrong updating rider!`, {
           duration: 2000,
         });
         loadingToast.close();
@@ -188,7 +188,7 @@ export class Riders implements OnInit {
 
     this.ridersService.createMotorcycle(formData).subscribe({
       next: (res) => {
-        this.toastService.success(`backdropFilter:  Created Successfully!`, {
+        this.toastService.success(`Created Successfully!`, {
           duration: 2000,
         });
 
