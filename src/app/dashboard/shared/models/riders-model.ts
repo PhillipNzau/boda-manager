@@ -1,4 +1,5 @@
 export interface Rider {
+  _id: string;
   id: string;
   user_id: string;
   full_name: string;

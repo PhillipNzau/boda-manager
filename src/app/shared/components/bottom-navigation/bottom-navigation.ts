@@ -40,7 +40,7 @@ export class BottomNavigation implements OnInit {
     // status: ['paid', Validators.required],
     // note: [''],
   });
-
+  rider: Rider | undefined;
   ngOnInit(): void {
     this.getRidersData();
   }
@@ -48,9 +48,9 @@ export class BottomNavigation implements OnInit {
   onRiderChange(event: Event) {
     const id = (event.target as HTMLSelectElement).value;
 
-    const rider = this.riders_data().find((r) => r.user_id === id);
+    this.rider = this.riders_data().find((r) => r.user_id === id);
 
-    if (rider) this.setRider(rider);
+    if (this.rider) this.setRider(this.rider);
   }
 
   setRider(rider: Rider) {
@@ -84,6 +84,9 @@ export class BottomNavigation implements OnInit {
   }
 
   onSubmit() {
+    this.paymentForm.patchValue({
+      rider_id: this.rider!._id,
+    });
     const loadingToast = this.toastService.loading('Processing...');
     const formData = this.paymentForm.value;
 
