@@ -87,7 +87,7 @@
           <label for="payRider">Rider</label>
           <select formControlName="rider_id" (change)="onRiderChange($event)">
             @for (rider of riders_data(); track rider.id) {
-              <option [value]="rider.id">{{ rider.full_name }}</option>
+              <option [value]="rider.user_id">{{ rider.full_name }}</option>
             }
           </select>
         </div>
@@ -134,7 +134,7 @@
             [disabled]="paymentForm.invalid"
             (click)="onSubmit()"
           >
-            Record Payment
+            Record Payments
           </button>
         </div>
       </form>

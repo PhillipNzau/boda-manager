@@ -67,9 +67,6 @@ export class Input {
     this.inputTypes.update((current) =>
       current === 'password' ? 'text' : 'password',
     );
-    console.log('====================================');
-    console.log('ss', this.inputTypes());
-    console.log('====================================');
   }
   handleBlur() {
     this.field().touched.set(true); // only show errors after user leaves the field

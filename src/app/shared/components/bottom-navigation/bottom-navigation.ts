@@ -47,7 +47,9 @@ export class BottomNavigation implements OnInit {
 
   onRiderChange(event: Event) {
     const id = (event.target as HTMLSelectElement).value;
-    const rider = this.riders_data().find((r) => r.id === id);
+
+    const rider = this.riders_data().find((r) => r.user_id === id);
+
     if (rider) this.setRider(rider);
   }
 
